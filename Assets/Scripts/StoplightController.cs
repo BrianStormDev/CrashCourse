@@ -4,89 +4,30 @@ using UnityEngine;
 
 public class StoplightController : MonoBehaviour
 {
-    public Renderer redRenderer; 
-    public Renderer yellowRenderer;
-    public Renderer greenRenderer;
+    [SerializeField] private Stoplight[] stoplights;
 
-    public float offIntensity = 0f;
-    public float onIntensity = 5f;
+    public float redDuration = 4f;
+    public float yellowDuration = 1.5f;
+    public float greenDuration = 4f;
 
-    private MaterialPropertyBlock block;
-
-    void Awake()
+    void Start()
     {
-        block = new MaterialPropertyBlock();
-        TurnAllOff();
+        StartCoroutine(CycleLights());
     }
 
-    IEnumerator Start()
+    private IEnumerator CycleLights()
     {
-        // Automatic cycling
         while(true)
         {
-            TurnRedOn();
-            yield return new WaitForSeconds(4f);
+            foreach(Stoplight light in stoplights) light.TurnRedOn();
+            yield return new WaitForSeconds(redDuration);
 
-            TurnGreenOn();
-            yield return new WaitForSeconds(4f);
+            foreach(Stoplight light in stoplights) light.TurnGreenOn();
+            yield return new WaitForSeconds(greenDuration);
 
-            TurnYellowOn();
-            yield return new WaitForSeconds(1.5f);
+            foreach(Stoplight light in stoplights) light.TurnYellowOn();
+            yield return new WaitForSeconds(yellowDuration);
         }
-    }
-
-    void SetEmission(Renderer r, Color color, float intensity)
-    {
-        r.GetPropertyBlock(block);
-        block.SetColor("_EmissionColor", color * intensity);
-        r.SetPropertyBlock(block);
-    }
-
-    public void TurnRedOn()
-    {
-        TurnAllOff();
-        SetEmission(redRenderer, Color.red, onIntensity);
-    }
-
-    public void TurnYellowOn()
-    {
-        TurnAllOff();
-        SetEmission(yellowRenderer, Color.yellow, onIntensity);
-    }
-
-    public void TurnGreenOn()
-    {
-        TurnAllOff();
-        SetEmission(greenRenderer, Color.green, onIntensity);
-    }
-
-    public void TurnAllOff()
-    {
-        SetEmission(redRenderer, Color.red, offIntensity);
-        SetEmission(yellowRenderer, Color.yellow, offIntensity);
-        SetEmission(greenRenderer, Color.green, offIntensity);
-    }
-
-
-    // void Start()
-    // {
         
-    // }
-
-    // void Update()
-    // {
-        
-    // }
-    
-    // void Start ()
-    // {
-    //     renderer.material.color = color;
-    // }
-
-    // void Update ()
-    // {
-    //     f = getIntensity();
-    //     Color color = Color.red * f;
-    //     renderer.material.SetColor("_EmissionColor", color);
-    // }
+    }
 }
