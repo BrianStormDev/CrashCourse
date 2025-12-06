@@ -1,0 +1,15 @@
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\obj\Debug\net9.0\coding.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\obj\Debug\net9.0\coding.AssemblyInfoInputs.cache
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\obj\Debug\net9.0\coding.AssemblyInfo.cs
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\obj\Debug\net9.0\coding.csproj.CoreCompileInputs.cache
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\obj\Debug\net9.0\coding.sourcelink.json
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\bin\Debug\net9.0\coding.exe
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\bin\Debug\net9.0\coding.deps.json
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\bin\Debug\net9.0\coding.runtimeconfig.json
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\bin\Debug\net9.0\coding.dll
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\bin\Debug\net9.0\coding.pdb
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\obj\Debug\net9.0\coding.dll
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\obj\Debug\net9.0\refint\coding.dll
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\obj\Debug\net9.0\coding.pdb
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\obj\Debug\net9.0\coding.genruntimeconfig.cache
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\delegates\coding\obj\Debug\net9.0\ref\coding.dll

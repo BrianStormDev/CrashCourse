@@ -19,15 +19,29 @@ public class StoplightController : MonoBehaviour
     {
         while(true)
         {
-            foreach(Stoplight light in stoplights) light.TurnRedOn();
+            foreach(Stoplight light in stoplights) {
+                if (light is ThreeLightStoplight tls)
+                {
+                    tls.TurnRedOn();
+                }
+            }
             yield return new WaitForSeconds(redDuration);
 
-            foreach(Stoplight light in stoplights) light.TurnGreenOn();
+            foreach(Stoplight light in stoplights){
+                if (light is ThreeLightStoplight tls)
+                {
+                    tls.TurnGreenOn();
+                }
+            };
             yield return new WaitForSeconds(greenDuration);
 
-            foreach(Stoplight light in stoplights) light.TurnYellowOn();
+            foreach(Stoplight light in stoplights) {
+                if (light is ThreeLightStoplight tls)
+                {
+                    tls.TurnYellowOn();
+                }
+            };
             yield return new WaitForSeconds(yellowDuration);
         }
-        
     }
 }

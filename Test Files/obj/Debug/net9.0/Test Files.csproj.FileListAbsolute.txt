@@ -1,0 +1,5 @@
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\obj\Debug\net9.0\Test Files.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\obj\Debug\net9.0\Test Files.AssemblyInfoInputs.cache
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\obj\Debug\net9.0\Test Files.AssemblyInfo.cs
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\obj\Debug\net9.0\Test Files.csproj.CoreCompileInputs.cache
+C:\Users\gameb\Desktop\extra_program\VR\CrashCourse\Test Files\obj\Debug\net9.0\Test Files.sourcelink.json
