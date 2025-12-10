@@ -6,8 +6,12 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform FR_Wheel_Transform;
     [SerializeField] private Transform RL_Wheel_Transform;
     [SerializeField] private Transform RR_Wheel_Transform;
+
+    [SerializeField] private float speed = 10f;
+    [SerializeField] private DrivingInputHandler inputHandler;
     
     LayerMask layerMask;
+
 
     void Awake()
     {
@@ -30,13 +34,21 @@ public class CarController : MonoBehaviour
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask))
             {
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
-                Debug.Log("Did Hit");
             }
             else
             {
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 1000, Color.white);
-                Debug.Log("Did not Hit");
+
             }
         } 
+    }
+
+    // Update handles movement
+    void Update()
+    {
+        Vector3 move = new Vector3(inputHandler.movement.x, 0f, inputHandler.movement.y);
+        move = move.normalized;
+        Debug.Log(move);
+        transform.position += move * speed * Time.deltaTime;
     }
 }
