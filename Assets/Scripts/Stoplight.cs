@@ -1,6 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public abstract class Stoplight : MonoBehaviour
@@ -23,7 +21,7 @@ public abstract class Stoplight : MonoBehaviour
         float currentIntensity = block.GetColor("_EmissionColor").maxColorComponent;
         float elapsed = 0f;
 
-        while (elapsed < fadeDuration)
+        while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float newIntensity = Mathf.Lerp(currentIntensity, targetIntensity, elapsed / duration);
@@ -44,7 +42,7 @@ public abstract class Stoplight : MonoBehaviour
         {
             StopCoroutine(coroutineRef);
         }
-        coroutineRef = StartCoroutine(FadeEmission(r, color, targetIntensity, fadeDuration));
+        coroutineRef = StartCoroutine(FadeEmission(r, color, targetIntensity, duration));
     }
 
     public abstract void TurnAllOff();
