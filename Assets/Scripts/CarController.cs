@@ -43,7 +43,7 @@ public class CarController : MonoBehaviour
 
         HandleAcceleration();
         HandleBraking();
-        HandleSteering();
+        // HandleSteering();
         RotateWheels();
 
         // TODO: Add suspension
@@ -67,20 +67,12 @@ public class CarController : MonoBehaviour
             // Handle forward acceleration
             if (throttleInput > 0f)
             {
-                rb.AddForceAtPosition(
-                    accelDir * forcePerWheel * throttleInput,
-                    wheel.position,
-                    ForceMode.Acceleration
-                );
+                rb.AddForce(accelDir * forcePerWheel * throttleInput, ForceMode.Acceleration);
             }
             // Handle reversing
             else if (throttleInput < 0)
             {
-                rb.AddForceAtPosition(
-                    accelDir * forcePerWheel * throttleInput,
-                    wheel.position,
-                    ForceMode.Acceleration
-                );
+                rb.AddForce(accelDir * forcePerWheel * throttleInput, ForceMode.Acceleration);
             }
             // ClampForwardSpeed();
 
@@ -110,11 +102,7 @@ public class CarController : MonoBehaviour
             {
                 // Apply braking opposite direction of movement
                 Vector3 brakeDir = -transform.forward * Mathf.Sign(zSpeed);
-                rb.AddForceAtPosition(
-                    brakeDir * frictionForce,
-                    wheel.position,
-                    ForceMode.Acceleration
-                );
+                rb.AddForce(brakeDir * frictionForce, ForceMode.Acceleration);
             }
         }
 
@@ -127,9 +115,14 @@ public class CarController : MonoBehaviour
         }
     }
 
-    void HandleSteering() {
-        
-    }
+    // void HandleSteering() {
+    //     foreach(Transform wheel in driveWheels)
+    //     {   
+            
+    //     }
+    // }
+
+    // TODO: void HandleSuspension() {}
 
     void RotateWheels()
     {
