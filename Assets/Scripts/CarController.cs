@@ -4,7 +4,7 @@ public class CarController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private DrivingInputHandler inputHandler;
-    public Transform[] wheels; // What wheels are not driving
+    public Transform[] steerWheels; // What wheels are not driving
     public Transform[] driveWheels; // What wheels are driving
     [SerializeField] private Rigidbody rb;
 
@@ -15,6 +15,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float brakeForce = 5f;
     [SerializeField] private float frictionForce = 5f;
     [SerializeField] private float maxSteeringAngle = 30f;
+    [SerializeField] private float steeringForce = 30f;
     [SerializeField] private float wheelRadius = 0.35f; // Idk if this is necessary
     
     [Header("Car Data")]
@@ -44,7 +45,7 @@ public class CarController : MonoBehaviour
         HandleAcceleration();
         HandleBraking();
         // HandleSteering();
-        RotateWheels();
+        // RotateWheels();
 
         // TODO: Add suspension
 
@@ -115,18 +116,32 @@ public class CarController : MonoBehaviour
         }
     }
 
-    // void HandleSteering() {
-    //     foreach(Transform wheel in driveWheels)
-    //     {   
+    void HandleSteering() {
+        // foreach(Transform wheel in steerWheels)
+        // {   
             
-    //     }
-    // }
+        // }
+        Vector3 steerDir = new Vector3(steerInput, 0, 0);
+        rb.AddTorque(Vector3.up * steeringForce * steerInput, ForceMode.Impulse);
+
+        // Steering should be proportional to the speed 
+
+    }
 
     // TODO: void HandleSuspension() {}
 
     void RotateWheels()
     {
-        
+       float steerAngle = steerInput * maxSteeringAngle;
+
+        foreach (Transform wheel in steerWheels)
+        {
+            wheel.localRotation = Quaternion.Euler(
+                0f,
+                steerAngle,
+                0f
+            );
+        }
     }
 
     void UpdateStats()
