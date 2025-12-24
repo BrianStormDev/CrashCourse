@@ -45,7 +45,7 @@ public class CarController : MonoBehaviour
         HandleAcceleration();
         HandleBraking();
         // HandleSteering();
-        // RotateWheels();
+        RotateWheels();
 
         // TODO: Add suspension
 
@@ -75,22 +75,20 @@ public class CarController : MonoBehaviour
             {
                 rb.AddForce(accelDir * forcePerWheel * throttleInput, ForceMode.Acceleration);
             }
-            // ClampForwardSpeed();
-
-            // Handle friction and braking
-            // else if (throttleInput == 0)
-            // {
-            //     rb.linearVelocity = accelDir * 0;
-            // }
+            
+            // Clamp forward speed
+            Vector3 localVel = transform.InverseTransformDirection(rb.linearVelocity);
+            localVel.z = Mathf.Clamp(localVel.z, -maxReversalSpeed, maxSpeed);
+            rb.linearVelocity = transform.TransformDirection(localVel);
         }
     }
 
-    void ClampForwardSpeed()
-    {
-        Vector3 localVel = transform.InverseTransformDirection(rb.linearVelocity);
-        localVel.z = Mathf.Clamp(localVel.z, -maxReversalSpeed, maxSpeed);
-        rb.linearVelocity = transform.TransformDirection(localVel);
-    }
+    // void ClampForwardSpeed()
+    // {
+    //     Vector3 localVel = transform.InverseTransformDirection(rb.linearVelocity);
+    //     localVel.z = Mathf.Clamp(localVel.z, -maxReversalSpeed, maxSpeed);
+    //     rb.linearVelocity = transform.TransformDirection(localVel);
+    // }
 
     void HandleBraking()
     {
@@ -132,16 +130,14 @@ public class CarController : MonoBehaviour
 
     void RotateWheels()
     {
-       float steerAngle = steerInput * maxSteeringAngle;
+        float steerAngle = steerInput * maxSteeringAngle;
 
         foreach (Transform wheel in steerWheels)
         {
-            wheel.localRotation = Quaternion.Euler(
-                0f,
-                steerAngle,
-                0f
-            );
+            wheel.localRotation = Quaternion.Euler(wheel.rotation.x, steerAngle, wheel.rotation.z);
         }
+
+        // Note we also want to make a method that will rotate the wheels along their axes
     }
 
     void UpdateStats()
@@ -150,14 +146,6 @@ public class CarController : MonoBehaviour
         currentAcceleration = (rb.linearVelocity - lastVelocity).magnitude / Time.fixedDeltaTime;
         lastVelocity = rb.linearVelocity;
     }
-
-    // // Update handles movement
-    // void Update()
-    // {
-    //     Vector3 move = new Vector3(inputHandler.movement.x, 0f, inputHandler.movement.y);
-    //     move = move.normalized;
-    //     transform.position += move * maxSpeed * Time.deltaTime;
-    // }
 
 
     // RaycastHit hit;
