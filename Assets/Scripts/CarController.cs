@@ -15,6 +15,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float brakeForce = 5f;
     [SerializeField] private float frictionForce = 5f;
     [SerializeField] private float maxSteeringAngle = 30f;
+    [SerializeField] private float steerIncrement = 3f;
     [SerializeField] private float steeringForce = 30f;
     [SerializeField] private float wheelRadius = 0.35f; // Idk if this is necessary
     
@@ -23,6 +24,7 @@ public class CarController : MonoBehaviour
     [ReadOnly] public float currentAcceleration; // m/s^2
     [ReadOnly] public float throttleInput; // -1 to 1
     [ReadOnly] public float steerInput; // -1 to 1
+    [ReadOnly] public float curSteerAngle; // -30deg to 30deg
 
     private Vector3 lastVelocity;
 
@@ -116,11 +118,13 @@ public class CarController : MonoBehaviour
 
     void HandleSteering() {
         // foreach(Transform wheel in steerWheels)
-        // {   
-            
-        // }
-        Vector3 steerDir = new Vector3(steerInput, 0, 0);
-        rb.AddTorque(Vector3.up * steeringForce * steerInput, ForceMode.Impulse);
+        // SteeringForce multiplier?
+        // ForceMode.Impulse was the original version
+        rb.AddTorque(Vector3.up * currentSpeed * curSteerAngle, ForceMode.Force);
+
+        rb.AddTorque( Vector3.up * -rb.angularVelocity.y * steeringForce);
+
+        // I want to be able to reduce the torque based on the current speed
 
         // Steering should be proportional to the speed 
 
@@ -130,11 +134,12 @@ public class CarController : MonoBehaviour
 
     void RotateWheels()
     {
-        float steerAngle = steerInput * maxSteeringAngle;
+        curSteerAngle += steerInput * steerIncrement;
+        curSteerAngle = Mathf.Clamp(curSteerAngle, -maxSteeringAngle, maxSteeringAngle);
 
         foreach (Transform wheel in steerWheels)
         {
-            wheel.localRotation = Quaternion.Euler(wheel.rotation.x, steerAngle, wheel.rotation.z);
+            wheel.localRotation = Quaternion.Euler(wheel.rotation.x, curSteerAngle, wheel.rotation.z);
         }
 
         // Note we also want to make a method that will rotate the wheels along their axes
