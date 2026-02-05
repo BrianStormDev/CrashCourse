@@ -25,6 +25,7 @@ public class CarController : MonoBehaviour
     [ReadOnly] public float throttleInput; // -1 to 1
     [ReadOnly] public float steerInput; // -1 to 1
     [ReadOnly] public float curSteerAngle; // -30deg to 30deg
+    [ReadOnly] public float yawAngularVelocity;
 
     private Vector3 lastVelocity;
 
@@ -46,7 +47,7 @@ public class CarController : MonoBehaviour
 
         HandleAcceleration();
         HandleBraking();
-        // HandleSteering();
+        HandleSteering();
         RotateWheels();
 
         // TODO: Add suspension
@@ -117,15 +118,23 @@ public class CarController : MonoBehaviour
     }
 
     void HandleSteering() {
-        // foreach(Transform wheel in steerWheels)
-        // SteeringForce multiplier?
+        // Draw a ray to visualize the linear velocity
+        Debug.DrawRay(rb.position, rb.linearVelocity, Color.yellow);
+
+        // Z-axis: transform.forward
+        Debug.DrawRay(rb.position, transform.forward * 10, Color.blue);
+        // Thus to get the magnitude of the linearVelocity in the Z direction (forward), dot product
+        yawAngularVelocity = rb.angularVelocity.y;
+
+        float yawDampingTorque = -yawAngularVelocity * 5;
+
+        rb.AddTorque(Vector3.up * yawDampingTorque, ForceMode.Acceleration);
+
         // ForceMode.Impulse was the original version
         rb.AddTorque(Vector3.up * currentSpeed * curSteerAngle, ForceMode.Force);
 
-        rb.AddTorque( Vector3.up * -rb.angularVelocity.y * steeringForce);
 
         // I want to be able to reduce the torque based on the current speed
-
         // Steering should be proportional to the speed 
 
     }
